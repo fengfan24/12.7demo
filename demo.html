@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Javascript 二维码生成库：QRCode</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://static.runoob.com/assets/qrcode/qrcode.min.js"></script>
+</head>
+
+<body>
+    <input id="text" type="text" value="https://m.toutiao.com/is/i8J7P7as/" style="width:80%" /><br />
+    <!-- <img id="image" src="./img/微信图片_20231206150015.jpg" alt=""> -->
+    <iframe id="musicIframe" frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2104343497&auto=1&height=66"></iframe>
+    <audio id="audio1" autoplay>
+        <source src="./img/你看你拉住我的模样.MP3" type="audio/mpeg" />
+    </audio>
+    <button id="click">播放</button>
+    <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+
+    <script type="text/javascript">
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "http://www.example.com",
+    width: 256,
+    height: 256,
+    colorDark : "#005430",
+    colorLight : "#ff1111",
+    correctLevel : QRCode.CorrectLevel.H
+        });
+
+        var myAudio1 = document.getElementById("audio1");
+        var click = document.getElementById("click");
+        click.addEventListener('click', () => {
+            console.log('进来了')
+            myAudio1.play()
+        })
+        myAudio1.play()
+
+        function makeCode() {
+            var elText = document.getElementById("text");
+            var elImage = document.getElementById("image");
+            var musicIframe = document.getElementById("musicIframe");
+
+            if (!elText.value) {
+                alert("Input a text");
+                elText.focus();
+                return;
+            }
+            myAudio1.play()
+
+            qrcode.makeCode(elText.value);
+            // qrcode.makeCode(elImage.src);
+            // qrcode.makeCode(musicIframe.src);
+        }
+
+        makeCode();
+
+        $("#text").
+            on("blur", function () {
+                makeCode();
+            }).
+            on("keydown", function (e) {
+                if (e.keyCode == 13) {
+                    makeCode();
+                }
+            });
+    </script>
+</body>
+
+</html>
